@@ -12,6 +12,10 @@
 *.pyc
 *.egg-info
 .pytest_cache
-
-# virtual environments
+# venv 
 venv/
+.env
+
+# venv 
+venv/
+.env

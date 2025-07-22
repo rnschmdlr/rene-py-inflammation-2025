@@ -8,6 +8,49 @@ and each column represents a single day across all patients.
 """
 
 import numpy as np
+import glob
+import os
+import json
+
+class CSVDataSource:
+    """
+    Class to handle loading CSV data files.
+
+    Expects a directory path containing CSV files matching a specific pattern,
+    such as 'inflammation*.csv', for loading inflammation data.
+    """
+
+    def __init__(self, dir_path):
+        self.dir_path = dir_path
+
+    def load_inflammation_data(self):
+        """Load inflammation data from CSV files in the specified directory."""
+        csv_files = glob.glob(os.path.join(self.dir_path, 'inflammation*.csv'))
+        data = list(map(load_csv, csv_files))  # Load CSV files from the directory
+        if not data:
+            raise ValueError(f"No inflammation CSV files found in path {self.dir_path}")
+        return data  # Return the list of 2D NumPy arrays with inflammation data
+
+class JSONDataSource:
+    """
+    Class to handle loading JSON data files.
+
+    Expects a directory path containing JSON files with inflammation data.
+    """
+
+    def __init__(self, dir_path):
+        self.dir_path = dir_path
+
+    def load_inflammation_data(self):
+        """Load inflammation data from JSON files in the specified directory."""
+        json_files = glob.glob(os.path.join(self.dir_path, '*.json'))
+        if not json_files:
+            raise ValueError(f"No JSON files found in path {self.dir_path}")
+
+        for file in json_files:
+            with open(file, 'r', encoding='utf-8') as f:
+                content = json.load(f)
+                return [np.array(entry['observations']) for entry in content]
 
 
 def load_csv(filename):  
