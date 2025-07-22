@@ -4,7 +4,7 @@
 import argparse
 import os
 
-from inflammation import models, views
+from inflammation.models import CSVDataSource, JSONDataSource
 from inflammation.compute_data import analyse_data
 
 
@@ -16,24 +16,36 @@ def main(args):
     - passing data between models and views
     """
     infiles = args.infiles
-    if not isinstance(infiles, list):
-        infiles = [args.infiles]
 
+    if args.full_data_analysis or args.plot:
+        _, extension = os.path.splitext(infiles[0])
+        if extension == '.json':
+            data_source = JSONDataSource(os.path.dirname(infiles[0]))
+        elif extension == '.csv':
+            data_source = CSVDataSource(os.path.dirname(infiles[0]))
+        else:
+            raise ValueError(f'Unsupported data file format: {extension}')
 
-    if args.full_data_analysis:
-        analyse_data(os.path.dirname(infiles[0]))
-        return
+    if args.full_data_analysis:    
+        print(analyse_data(data_source))
+    
+    if args.plot:
+        from inflammation import views
+        from inflammation import models
 
-    for filename in infiles:
-        inflammation_data = models.load_csv(filename)
+        # Load the data from the specified files
+        inflammation_data = data_source.load_inflammation_data()
 
+        # Prepare the view data
         view_data = {
             'average': models.daily_mean(inflammation_data),
             'max': models.daily_max(inflammation_data),
             'min': models.daily_min(inflammation_data)
         }
 
+        # Visualize the data
         views.visualize(view_data)
+        return
 
 
 if __name__ == "__main__":
@@ -49,6 +61,11 @@ if __name__ == "__main__":
         '--full-data-analysis',
         action='store_true',
         dest='full_data_analysis')
+    
+    parser.add_argument(
+        '--plot'
+        , action='store_true',
+        dest='plot',)
 
     args = parser.parse_args()
 
