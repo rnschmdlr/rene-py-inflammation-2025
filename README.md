@@ -2,17 +2,57 @@
 
 This is a template software project repository used by the [Intermediate Research Software Development Skills In Python](https://github.com/carpentries-incubator/python-intermediate-development).
 
-## Purpose
 
-This repository is intended to be used as an example software project which is copied by learners of the 
-[Intermediate Research Software Development Skills In Python](https://github.com/carpentries-incubator/python-intermediate-development) course.
+# Project Overview
 
-This software project is not finished, does not contain a LICENCE file, the code is currently failing to run and contains some code style issues. 
-It is used as a starting point for the course - issues will be fixed and code will be added in a number of places during the course by learners in their own copies of the repository, as course topics are introduced.
+This project analyzes inflammation data collected from patients over a series of days. It provides Python modules for loading, processing, and visualizing time-series medical data, with a focus on reproducible research workflows. The repository includes example datasets and analysis scripts to help users explore trends, compute statistics, and generate plots for inflammation studies.
 
-## Tests
+# Features
 
-Several tests have been implemented already, some of which are currently failing.
-These failing tests set out the requirements for the additional code to be implemented during the workshop.
+- Modular Python code structure
+- Automated testing with `pytest`
+- Example data and scripts for analysis
+- Continuous integration setup
+- Ready-to-use documentation templates
 
-The tests should be run using `pytest`, which will be introduced during the workshop.
+# Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/carpentries-incubator/python-intermediate-development.git
+    cd python-intermediate-development
+    ```
+2. (Optional) Create and activate a virtual environment:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+3. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+# Usage
+
+- Run the main analysis script with one or more input CSV files as positional arguments:
+    ```bash
+    python src/inflammation_analysis.py data/inflammation-01.csv data/inflammation-02.csv
+    ```
+    - Each argument is the path to an input CSV file containing inflammation data for patients (required; one or more files can be specified).
+    ```
+
+# Contributing
+
+Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on submitting issues and pull requests.
+
+# License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+# Contact
+
+For questions or support, please open an issue on the repository or contact the maintainers via GitHub.
+
+# Acknowledgements
+
+This template is developed as part of the Carpentries Incubator and is inspired by community best practices in research software engineering.
