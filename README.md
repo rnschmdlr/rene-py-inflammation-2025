@@ -1,3 +1,5 @@
+![Continuous Integration build in GitHub Actions](https://github.com/rnschmdlr/rene-py-inflammation-2025/actions/workflows/main.yml/badge.svg?branch=main)
+
 # Introduction
 
 This is a template software project repository used by the [Intermediate Research Software Development Skills In Python](https://github.com/carpentries-incubator/python-intermediate-development).
